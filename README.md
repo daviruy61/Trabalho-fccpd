@@ -36,6 +36,9 @@ docker compose up
 
 3. Observe, no próprio terminal, os logs sendo emitidos em tempo real:
 
+<img width="993" height="260" alt="image" src="https://github.com/user-attachments/assets/7b7f530e-63f7-4ed2-9544-5440867738d9" />
+
+
 - O container cliente exibirá mensagens informando que está enviando chamadas HTTP.
 - O container servidor registrará as requisições recebidas na porta `8080` e responderá com uma mensagem de texto simples.
 
@@ -95,6 +98,9 @@ SELECT * FROM teste_persistencia;
 \q
 ```
 
+<img width="1216" height="688" alt="image" src="https://github.com/user-attachments/assets/fa1b51a1-b909-4d80-a403-3af81a0a4423" />
+
+
 Testando persistência:
 
 ```bash
@@ -102,6 +108,8 @@ docker compose down
 docker compose up -d
 docker exec -it desafio2-db-container psql -U admin -d desafio2 -c "SELECT * FROM teste_persistencia;"
 ```
+<img width="1295" height="186" alt="image" src="https://github.com/user-attachments/assets/2da59ef5-71ca-400c-8b26-1b33c40b3136" />
+
 
 ---
 
@@ -147,6 +155,9 @@ psql -U desafio_user -d desafio3_app_db -c '\l'
 exit
 ```
 
+<img width="1216" height="314" alt="image" src="https://github.com/user-attachments/assets/d6bf8aa0-d7da-4d8c-82bd-e72984053542" />
+
+
 Testando Redis:
 
 ```bash
@@ -159,6 +170,9 @@ Dentro dele:
 redis-cli ping
 exit
 ```
+
+<img width="1082" height="66" alt="image" src="https://github.com/user-attachments/assets/c4814ace-4dab-421c-af5a-35d026bff8ba" />
+
 
 ---
 
@@ -207,6 +221,9 @@ Serviço B:
 curl http://localhost:5001/info
 ```
 
+<img width="1304" height="152" alt="image" src="https://github.com/user-attachments/assets/12fd9368-d44d-49fc-80bd-54f980513b48" />
+
+
 ---
 
 ### ARQUITETURA
@@ -244,6 +261,9 @@ Testando endpoints:
 curl http://localhost/users
 curl http://localhost/orders
 ```
+
+<img width="1465" height="135" alt="image" src="https://github.com/user-attachments/assets/26474680-67f6-47fb-8e55-0940157e42dc" />
+
 
 ---
 
