@@ -39,7 +39,6 @@ docker compose up
 - O container cliente exibirá mensagens informando que está enviando chamadas HTTP.
 - O container servidor registrará as requisições recebidas na porta `8080` e responderá com uma mensagem de texto simples.
 
-Quando quiser finalizar, utilize `Ctrl + C` no terminal em que o compose está rodando.
 
 ---
 
@@ -104,12 +103,6 @@ docker compose up -d
 docker exec -it desafio2-db-container psql -U admin -d desafio2 -c "SELECT * FROM teste_persistencia;"
 ```
 
-Leitor (opcional):
-
-```bash
-docker exec -it desafio2-reader-container sh -c "PGPASSWORD=admin psql -h desafio2-db-container -U admin -d desafio2 -c 'SELECT * FROM teste_persistencia;'"
-```
-
 ---
 
 ### ARQUITETURA
@@ -130,7 +123,7 @@ docker exec -it desafio2-reader-container sh -c "PGPASSWORD=admin psql -h desafi
 
 # Desafio 3: Docker Compose Orquestrando Serviços
 
-Três serviços são configurados via Docker Compose: banco Postgres, cache Redis e um container web usado como ambiente de testes.
+Três serviços são configurados via Docker Compose: banco Postgres, cache Redis e um container web usado como ambiente de testes para verificar a comunicação entre os serviços.
 
 ---
 
@@ -139,15 +132,32 @@ Três serviços são configurados via Docker Compose: banco Postgres, cache Redi
 ```bash
 cd desafio3
 docker compose up -d
-docker exec -it desafio3-web-service sh
 ```
 
-Dentro do container web:
+Testando postgres:
 
 ```bash
-apk add --no-cache postgresql-client redis
-psql -h desafio3_database -U desafio_user -d desafio3_app_db -c '\l'
-redis-cli -h desafio3_cache ping
+docker exec -it desafio3-database sh
+```
+
+Dentro dele:
+
+```bash
+psql -U desafio_user -d desafio3_app_db -c '\l'
+exit
+```
+
+Testando Redis:
+
+```bash
+docker exec -it desafio3-cache-service sh
+```
+
+Dentro dele:
+
+```bash
+redis-cli ping
+exit
 ```
 
 ---
