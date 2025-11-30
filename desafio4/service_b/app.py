@@ -4,7 +4,6 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-# URL do serviço de usuários (Serviço A), obtida por variável de ambiente
 SERVICE_A_URL = os.environ.get(
     "SERVICE_A_URL",
     "http://service-a:5000/usuarios"
@@ -13,7 +12,6 @@ SERVICE_A_URL = os.environ.get(
 
 @app.route("/info", methods=["GET"])
 def aggregate_user_info():
-    """Consulta o Serviço A e retorna as informações formatadas para o cliente."""
     try:
         # Chamada HTTP ao microsserviço de usuários
         response = requests.get(SERVICE_A_URL)

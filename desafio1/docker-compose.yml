@@ -1,10 +1,8 @@
 services:
-  # Serviço responsável por atuar como servidor HTTP
   web_server_d1:
     image: nginx:alpine
     container_name: desafio1_webserver
     volumes:
-      # disponibiliza o arquivo de configuração do Nginx dentro do container
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     networks:
       - net-desafio1
@@ -21,7 +19,6 @@ services:
     depends_on:
       - web_server_d1
 
-# Definição da rede utilizada pelos containers
 networks:
   net-desafio1:
     driver: bridge

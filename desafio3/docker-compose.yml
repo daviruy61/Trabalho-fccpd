@@ -1,7 +1,6 @@
 version: "3.8"
 
 services:
-  # Serviço responsável pelo banco de dados PostgreSQL
   desafio3_database:
     image: postgres:15-alpine
     container_name: desafio3-database
@@ -15,7 +14,6 @@ services:
       - desafio3_network
     restart: always
 
-  # Serviço de cache em memória utilizando Redis
   desafio3_cache:
     image: redis:alpine
     container_name: desafio3-cache-service
@@ -23,7 +21,6 @@ services:
       - desafio3_network
     restart: always
 
-  # Serviço web simulando a aplicação que consome DB e cache
   desafio3_web:
     image: busybox
     container_name: desafio3-web-service
@@ -31,7 +28,6 @@ services:
       - desafio3_database
       - desafio3_cache
     environment:
-      # Parâmetros de conexão que a aplicação utilizaria
       DB_HOST: desafio3_database
       DB_USER: desafio_user
       DB_PASSWORD: desafio_password
@@ -41,15 +37,12 @@ services:
       - "8080:8080"
     networks:
       - desafio3_network
-    # Mantém o container ativo para permitir testes via docker exec
     entrypoint: ["sh", "-c", "echo 'Aplicação Web do Desafio 3 em execução...' && tail -f /dev/null"]
     restart: always
 
-# Rede interna para a comunicação entre os serviços
 networks:
   desafio3_network:
     driver: bridge
 
-# Volume utilizado para a persistência dos dados do banco
 volumes:
   desafio3_dbdata:

@@ -12,9 +12,6 @@ ORDERS_DATA = [
 
 @app.get("/api/orders")
 def list_orders():
-    """
-    Endpoint responsável por devolver todos os pedidos registrados.
-    """
     return jsonify(ORDERS_DATA)
 
 

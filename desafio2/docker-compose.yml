@@ -1,5 +1,4 @@
 services:
-  # Serviço principal do banco de dados PostgreSQL
   desafio2_database:
     image: postgres:15-alpine
     container_name: desafio2-db-container
@@ -14,7 +13,6 @@ services:
     networks:
       - desafio2_network
 
-  # Serviço auxiliar para leitura e inspeção dos dados persistidos
   desafio2_reader:
     image: postgres:15-alpine
     container_name: desafio2-reader-container
@@ -26,11 +24,9 @@ services:
     volumes:
       - desafio2_data_volume:/var/lib/postgresql/data
 
-# Rede interna utilizada pelos containers do desafio 2
 networks:
   desafio2_network:
     driver: bridge
 
-# Volume responsável pela persistência dos dados do PostgreSQL
 volumes:
   desafio2_data_volume:
