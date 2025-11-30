@@ -1,0 +1,37 @@
+services:
+  # 1. API Gateway (ponto central de entrada para /users e /orders)
+  api-gateway:
+    image: nginx:alpine
+    container_name: desafio5-api-gateway
+    ports:
+      - "80:80"  # expõe o gateway na porta HTTP padrão
+    volumes:
+      # arquivo de configuração do Nginx responsável pelo roteamento interno
+      - ./gateway/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - desafio5_network
+    depends_on:
+      - users-service
+      - orders-service
+    restart: always
+
+  # 2. Microsserviço responsável pelos dados de usuários
+  users-service:
+    build: ./service_users
+    container_name: desafio5-users-service
+    networks:
+      - desafio5_network
+    restart: always
+
+  # 3. Microsserviço responsável pelos dados de pedidos
+  orders-service:
+    build: ./service_orders
+    container_name: desafio5-orders-service
+    networks:
+      - desafio5_network
+    restart: always
+
+# Rede interna utilizada para comunicação entre gateway e microsserviços
+networks:
+  desafio5_network:
+    driver: bridge

@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  # Microsserviço A - provedor dos dados de usuários
+  users-service:
+    build: ./service_a
+    container_name: desafio4-users-service
+    ports:
+      - "5000:5000" # acesso externo ao endpoint /usuarios
+    networks:
+      - desafio4_network
+    restart: always
+
+  # Microsserviço B - consumidor dos dados do Serviço A
+  aggregator-service:
+    build: ./service_b
+    container_name: desafio4-aggregator-service
+    depends_on:
+      - users-service
+    environment:
+      # Endereço interno usado pelo Serviço B para encontrar o Serviço A
+      SERVICE_A_URL: http://users-service:5000/usuarios
+    ports:
+      - "5001:5001" # acesso externo ao endpoint /info
+    networks:
+      - desafio4_network
+    restart: always
+
+# Rede interna utilizada para comunicação entre os dois microsserviços
+networks:
+  desafio4_network:
+    driver: bridge
